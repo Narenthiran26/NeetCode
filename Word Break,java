@@ -1,0 +1,26 @@
+class Solution {
+    Boolean[] memo;
+    Set<String> set;
+    public boolean wordBreak(String s, List<String> wordDict) {
+        set=new HashSet<>(wordDict);
+        memo=new Boolean[s.length()];
+        return word(s,wordDict,0);
+    }
+    private boolean word(String s,List<String> wordDict,int i){
+        if(i==s.length()){
+            return true;
+        }
+        if(memo[i]!=null){
+            return memo[i];
+        }
+        for(int j=i;j<s.length();j++){
+            if(set.contains(s.substring(i,j+1))){
+                if(word(s,wordDict,j+1)){
+                    return memo[i]= true;
+                }
+            }
+        }
+        memo[i]= false;
+        return memo[i];
+    }
+}
